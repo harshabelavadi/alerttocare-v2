@@ -46,20 +46,47 @@ public class HealthStatusServiceImplementation implements IService<HealthStatus>
 	}
 
 	private boolean isVitalsInRange(HealthStatus healthstatus) {
-		Double bpSystolic = healthstatus.getBpSystolic();
-		Double bpDiastolic = healthstatus.getBpDiastolic();
-		Double heartRate = healthstatus.getHeartrate();
-		Double respRate = healthstatus.getRespiratoryrate();
-		Double spo2Rate = healthstatus.getSpo2();
-		
-		boolean bpSystolicInRange = (bpSystolic >= 90 && bpSystolic < 120); 
-		boolean bpDiastolicInRange = (bpDiastolic >= 60 && bpDiastolic < 80); 
-		boolean heartRateInRange = (heartRate >= 60 && heartRate <= 100);
-		boolean respRateInRange = (respRate >= 12 && respRate <= 18);
-		boolean spo2InRange = (spo2Rate >= 95);
-		return (bpSystolicInRange && bpDiastolicInRange
-				&& heartRateInRange && respRateInRange
-				&& spo2InRange);
-	}
 
+		if (!this.isBpSystolicInRange(healthstatus.getBpSystolic())) {
+			return true;
+		}
+		
+		if (!this.isBpDiastolicInRange(healthstatus.getBpDiastolic())) {
+			return true;
+		}
+		
+		if (!this.isHeartRateInRange(healthstatus.getHeartrate())) {
+			return true;
+		}
+		
+		if (!this.isRespRateInRange(healthstatus.getRespiratoryrate())) {
+			return true;
+		}
+		
+		if (!this.isSpo2InRange(healthstatus.getSpo2())) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean isBpSystolicInRange(Double bpSystolic) {
+		return (bpSystolic >= 90 && bpSystolic < 120);
+	}
+	
+	private boolean isBpDiastolicInRange(Double bpDiastolic) {
+		return (bpDiastolic >= 60 && bpDiastolic < 80); 
+	}
+	
+	private boolean isHeartRateInRange(Double heartRate) {
+		return (heartRate >= 60 && heartRate <= 100); 
+	}
+	
+	private boolean isRespRateInRange(Double respRate) {
+		return (respRate >= 12 && respRate <= 18);
+	}	
+	
+	private boolean isSpo2InRange(Double spo2Rate) {
+		return (spo2Rate >= 95);
+	}
 }
