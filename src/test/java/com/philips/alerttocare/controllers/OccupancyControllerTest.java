@@ -144,7 +144,7 @@ public class OccupancyControllerTest {
 	
 	@Test
 	public void test5_DeleteStatus() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/alerttocare/occupancies/1").accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/alerttocare/occupancies/2").accept(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers.status().isOk());
 	}	
 }
