@@ -121,7 +121,7 @@ public class BedControllerTest {
 	
 	@Test
 	public void test5_DeleteBed() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/alerttocare/beds/2").accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/alerttocare/beds/1").accept(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers.status().isOk());
 	}	
 }

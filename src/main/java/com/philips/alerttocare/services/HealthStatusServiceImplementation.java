@@ -37,31 +37,38 @@ public class HealthStatusServiceImplementation implements IService<HealthStatus>
 		statusRepository.delete(healthstatus);
 	}
 	
-	private HealthStatus triggerAlerts(HealthStatus healthstatus) {
-		boolean flagOne = this.isBpSystolicInRange(healthstatus.getBpSystolic()) && this.isBpDiastolicInRange(healthstatus.getBpDiastolic());
-		boolean flagTwo = flagOne && this.isHeartRateInRange(healthstatus.getHeartrate());
+	private HealthStatus triggerAlerts(HealthStatus healthstatus) {		
+		this.isBpSystolicInRange(healthstatus);
+		this.isBpDiastolicInRange(healthstatus);
+		this.isHeartRateInRange(healthstatus);
+		this.isRespRateInRange(healthstatus);
+		this.isSpo2InRange(healthstatus);
 		
-		healthstatus.setAlert(finalFlag);
 		return healthstatus;
 	}
 
-	private boolean isBpSystolicInRange(Double bpSystolic) {
-		return (bpSystolic >= 90 && bpSystolic < 120);
+	private void isBpSystolicInRange(HealthStatus healthstatus) {
+		Double bpSystolic = healthstatus.getBpSystolic();
+		healthstatus.setAlert(!(bpSystolic >= 90 && bpSystolic < 120));
 	}
 	
-	private boolean isBpDiastolicInRange(Double bpDiastolic) {
-		return (bpDiastolic >= 60 && bpDiastolic < 80); 
+	private void isBpDiastolicInRange(HealthStatus healthstatus) {
+		Double bpDiastolic = healthstatus.getBpDiastolic();
+		healthstatus.setAlert(healthstatus.isAlert() && !(bpDiastolic >= 60 && bpDiastolic < 80)); 
 	}
 	
-	private boolean isHeartRateInRange(Double heartRate) {
-		return (heartRate >= 60 && heartRate <= 100); 
+	private void isHeartRateInRange(HealthStatus healthstatus) {
+		Double heartRate = healthstatus.getHeartrate(); 
+		healthstatus.setAlert(healthstatus.isAlert() && !(heartRate >= 60 && heartRate <= 100));
 	}
 	
-	private boolean isRespRateInRange(Double respRate) {
-		return (respRate >= 12 && respRate <= 18);
+	private void isRespRateInRange(HealthStatus healthstatus) {
+		Double respRate = healthstatus.getRespiratoryrate(); 
+		healthstatus.setAlert(healthstatus.isAlert() && !(respRate >= 12 && respRate <= 18));
 	}	
 	
-	private boolean isSpo2InRange(Double spo2Rate) {
-		return (spo2Rate >= 95);
+	private void isSpo2InRange(HealthStatus healthstatus) {
+		Double spo2Rate = healthstatus.getSpo2(); 
+		healthstatus.setAlert(healthstatus.isAlert() &&  !(spo2Rate >= 95) );
 	}
 }
