@@ -136,6 +136,7 @@ public class HealthStatusControllerTest {
 		.andExpect(jsonPath("$.bpSystolic").exists())
 		.andExpect(jsonPath("$.spo2").exists())
 		.andExpect(jsonPath("$.respiratoryrate").exists())
+		.andExpect(jsonPath("$.alert").exists())
 		.andExpect(jsonPath("$.occupancy").exists())
 		.andExpect(jsonPath("$.monitor").exists())
 		.andExpect(MockMvcResultMatchers.status().isOk())
@@ -144,6 +145,29 @@ public class HealthStatusControllerTest {
 		.andExpect(jsonPath("$.bpSystolic").value(100.5))
 		.andExpect(jsonPath("$.spo2").value(50.35))
 		.andExpect(jsonPath("$.respiratoryrate").value(47.35))
+		.andExpect(jsonPath("$.alert").value(true))
+		.andExpect(jsonPath("$.occupancy.id").value(1L))
+		.andExpect(jsonPath("$.monitor.id").value(1L));
+		
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/alerttocare/healthstatus/2").accept(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.id").exists())
+		.andExpect(jsonPath("$.heartrate").exists())
+		.andExpect(jsonPath("$.bpSystolic").exists())
+		.andExpect(jsonPath("$.bpDiastolic").exists())
+		.andExpect(jsonPath("$.spo2").exists())
+		.andExpect(jsonPath("$.respiratoryrate").exists())
+		.andExpect(jsonPath("$.alert").exists())
+		.andExpect(jsonPath("$.occupancy").exists())
+		.andExpect(jsonPath("$.monitor").exists())
+		.andExpect(MockMvcResultMatchers.status().isOk())
+		.andExpect(jsonPath("$.id").value(2L))
+		.andExpect(jsonPath("$.heartrate").value(70))
+		.andExpect(jsonPath("$.bpSystolic").value(100))
+		.andExpect(jsonPath("$.bpDiastolic").value(70))
+		.andExpect(jsonPath("$.spo2").value(96))
+		.andExpect(jsonPath("$.respiratoryrate").value(15))
+		.andExpect(jsonPath("$.alert").value(false))
 		.andExpect(jsonPath("$.occupancy.id").value(1L))
 		.andExpect(jsonPath("$.monitor.id").value(1L));
 		

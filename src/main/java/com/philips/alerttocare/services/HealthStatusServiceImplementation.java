@@ -54,17 +54,17 @@ public class HealthStatusServiceImplementation implements IService<HealthStatus>
 	
 	private void isBpDiastolicInRange(HealthStatus healthstatus) {
 		Double bpDiastolic = healthstatus.getBpDiastolic();
-		healthstatus.setAlert(healthstatus.isAlert() && !(bpDiastolic >= 60 && bpDiastolic < 80)); 
+		healthstatus.setAlert(healthstatus.isAlert() || !(bpDiastolic >= 60 && bpDiastolic < 80)); 
 	}
 	
 	private void isHeartRateInRange(HealthStatus healthstatus) {
 		Double heartRate = healthstatus.getHeartrate(); 
-		healthstatus.setAlert(healthstatus.isAlert() && !(heartRate >= 60 && heartRate <= 100));
+		healthstatus.setAlert(healthstatus.isAlert() || !(heartRate >= 60 && heartRate <= 100));
 	}
 	
 	private void isRespRateInRange(HealthStatus healthstatus) {
 		Double respRate = healthstatus.getRespiratoryrate(); 
-		healthstatus.setAlert(healthstatus.isAlert() && !(respRate >= 12 && respRate <= 18));
+		healthstatus.setAlert(healthstatus.isAlert() || !(respRate >= 12 && respRate <= 18));
 	}	
 	
 	private void isSpo2InRange(HealthStatus healthstatus) {
