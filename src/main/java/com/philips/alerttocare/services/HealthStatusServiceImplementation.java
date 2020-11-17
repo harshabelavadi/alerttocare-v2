@@ -38,11 +38,12 @@ public class HealthStatusServiceImplementation implements IService<HealthStatus>
 	}
 	
 	private HealthStatus triggerAlerts(HealthStatus healthstatus) {
-		healthstatus.setAlert((this.isBpSystolicInRange(healthstatus.getBpSystolic()) &&
-					this.isBpDiastolicInRange(healthstatus.getBpDiastolic()) &&
-					this.isHeartRateInRange(healthstatus.getHeartrate()) &&
-					this.isRespRateInRange(healthstatus.getRespiratoryrate()) &&
-					this.isSpo2InRange(healthstatus.getSpo2())));
+		boolean flagOne = this.isBpSystolicInRange(healthstatus.getBpSystolic()) && this.isBpDiastolicInRange(healthstatus.getBpDiastolic());
+		boolean flagTwo = flagOne && this.isHeartRateInRange(healthstatus.getHeartrate());
+		boolean flagThree = flagTwo && this.isRespRateInRange(healthstatus.getRespiratoryrate());
+		boolean finalFlag = flagThree && this.isSpo2InRange(healthstatus.getSpo2());
+		
+		healthstatus.setAlert(finalFlag);
 		return healthstatus;
 	}
 	
