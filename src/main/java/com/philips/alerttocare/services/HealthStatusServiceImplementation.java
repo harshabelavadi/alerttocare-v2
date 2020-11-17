@@ -46,28 +46,11 @@ public class HealthStatusServiceImplementation implements IService<HealthStatus>
 	}
 
 	private boolean isVitalsInRange(HealthStatus healthstatus) {
-
-		if (!this.isBpSystolicInRange(healthstatus.getBpSystolic())) {
-			return true;
-		}
-		
-		if (!this.isBpDiastolicInRange(healthstatus.getBpDiastolic())) {
-			return true;
-		}
-		
-		if (!this.isHeartRateInRange(healthstatus.getHeartrate())) {
-			return true;
-		}
-		
-		if (!this.isRespRateInRange(healthstatus.getRespiratoryrate())) {
-			return true;
-		}
-		
-		if (!this.isSpo2InRange(healthstatus.getSpo2())) {
-			return true;
-		}
-		
-		return false;
+		return (this.isBpSystolicInRange(healthstatus.getBpSystolic()) &&
+				this.isBpDiastolicInRange(healthstatus.getBpDiastolic()) &&
+				this.isHeartRateInRange(healthstatus.getHeartrate()) &&
+				this.isRespRateInRange(healthstatus.getRespiratoryrate()) &&
+				this.isSpo2InRange(healthstatus.getSpo2()));
 	}
 	
 	private boolean isBpSystolicInRange(Double bpSystolic) {
